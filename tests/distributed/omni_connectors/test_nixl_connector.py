@@ -316,6 +316,7 @@ def copying_native_agent(consumer, monkeypatch):
     return calls
 
 
+@pytest.mark.usefixtures("reliable_claim_queries")
 @pytest.mark.parametrize("case", ["empty", "all_empty", "mixed", "scalar", "structured_empty", "structured_mixed"])
 def test_zero_byte_leaves_roundtrip_without_native_descriptors(producer, consumer, copying_native_agent, case):
     empty = torch.empty((2, 0, 3), dtype=torch.float64)
@@ -347,6 +348,7 @@ def test_zero_byte_leaves_roundtrip_without_native_descriptors(producer, consume
     assert not consumer._agent.registered
 
 
+@pytest.mark.usefixtures("reliable_claim_queries")
 @pytest.mark.parametrize("direct", [False, True])
 @pytest.mark.parametrize("outcome", ["done", "error", "timeout", "unknown"])
 def test_read_ownership_through_terminal_and_deferred_paths(
