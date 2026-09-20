@@ -351,9 +351,9 @@ def test_zero_byte_leaves_roundtrip_without_native_descriptors(
     metadata_receive_timeout.assert_not_called()
 
 
-@pytest.mark.usefixtures("reliable_claim_queries")
 @pytest.mark.parametrize("direct", [False, True])
 @pytest.mark.parametrize("outcome", ["done", "error", "timeout", "unknown"])
+@pytest.mark.usefixtures("reliable_claim_queries")
 def test_read_ownership_through_terminal_and_deferred_paths(
     producer, consumer, copying_native_agent, metadata_receive_timeout, monkeypatch, direct, outcome
 ):
